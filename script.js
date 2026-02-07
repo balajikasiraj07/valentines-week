@@ -8,21 +8,21 @@
 //   new Date(2026, 1, 10, 12, 0, 0) → Chocolate Day
 //   new Date(2026, 1, 14, 12, 0, 0) → Valentine's Day
 // Set back to  new Date()  when done testing.
-let NOW = new Date();
+let NOW = new Date();;
 // ---- END ----
 
 (function init() {
-    const feb8     = new Date(NOW.getFullYear(), 1, 8, 0, 0, 0);
+    const feb7     = new Date(NOW.getFullYear(), 1, 7, 0, 0, 0);
     const feb14end = new Date(NOW.getFullYear(), 1, 14, 23, 59, 59);
 
-    if (NOW < feb8) {
+    if (NOW < feb7) {
         document.getElementById('screenCountdown').style.display = 'flex';
-        startCountdown(feb8);
+        startCountdown(feb7);
     } else if (NOW > feb14end) {
         document.getElementById('screenEnded').style.display = 'flex';
         spawnParticles(['💝','💖','💗']);
     } else {
-        const dayIndex = NOW.getDate() - 7; // 8→1, 9→2 … 14→7
+        const dayIndex = NOW.getDate() - 6; // 8→1, 9→2 … 14→7
         showDay(dayIndex);
     }
 })();
