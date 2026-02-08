@@ -8,7 +8,7 @@
 //   new Date(2026, 1, 10, 12, 0, 0) → Chocolate Day
 //   new Date(2026, 1, 14, 12, 0, 0) → Valentine's Day
 // Set back to  new Date()  when done testing.
-let NOW = new Date();;
+let NOW = new Date(2026, 1, 12, 12, 0, 0);
 // ---- END ----
 
 (function init() {
@@ -29,7 +29,7 @@ let NOW = new Date();;
 
 function showDay(n) {
     // Hide everything
-    ['screenCountdown','screenEnded','day1','day2','day3','day4','day5','day6','day7'].forEach(id => {
+    ['screenCountdown','screenEnded','day1','day2','day3','day4','day5','day6','day7','day8'].forEach(id => {
         document.getElementById(id).style.display = 'none';
     });
 
@@ -47,20 +47,21 @@ function showDay(n) {
 
     // Set particles & bg per day
     const configs = {
-        1: { particles:['🌹','🌸','💐'], bg:'linear-gradient(160deg,#fff5f7 0%,#fce4ec 100%)' },
-        2: { particles:['💍','✨','💫'], bg:'linear-gradient(160deg,#fff0f3 0%,#fce4ec 100%)' },
-        3: { particles:['🍫','🍬','✨'], bg:'linear-gradient(160deg,#2a1508 0%,#3e1f0e 100%)' },
-        4: { particles:['🐻','💛','🌻'], bg:'linear-gradient(160deg,#fff8ee 0%,#fff3e0 100%)' },
-        5: { particles:['📜','✨','🕊️'], bg:'linear-gradient(160deg,#fdf5e6 0%,#f5e6c8 100%)' },
-        6: { particles:['🤗','💕','💖'], bg:'linear-gradient(160deg,#fff0f3 0%,#ffecf0 100%)' },
-        7: { particles:['💝','😘','✨','💫'], bg:'linear-gradient(160deg,#fff5f7 0%,#ffe8ec 100%)' }
+    1: { particles:['🌹','🌸','💐'], bg:'linear-gradient(160deg,#fff5f7 0%,#fce4ec 100%)' },
+    2: { particles:['💍','✨','💫'], bg:'linear-gradient(160deg,#fff0f3 0%,#fce4ec 100%)' },
+    3: { particles:['🍫','🍬','✨'], bg:'linear-gradient(160deg,#2a1508 0%,#3e1f0e 100%)' },
+    4: { particles:['🐻','💛','🌻'], bg:'linear-gradient(160deg,#fff8ee 0%,#fff3e0 100%)' },
+    5: { particles:['📜','✨','🕊️'], bg:'linear-gradient(160deg,#fdf5e6 0%,#f5e6c8 100%)' },
+    6: { particles:['🤗','💕','💖'], bg:'linear-gradient(160deg,#fff0f3 0%,#ffecf0 100%)' },
+    7: { particles:['💋','✨','💫'], bg:'linear-gradient(160deg,#ffebf0 0%,#ffe0e6 100%)' },
+    8: { particles:['💝','😘','✨','💫'], bg:'linear-gradient(160deg,#fff5f7 0%,#ffe8ec 100%)' }
     };
     const cfg = configs[n];
     document.body.style.background = cfg.bg;
     spawnParticles(cfg.particles);
 
     // Auto-trigger day 7 confetti
-    if (n === 7) { setTimeout(launchConfetti, 800); }
+    if (n === 8) { setTimeout(launchConfetti, 800); }
 }
 
 // ============================================================
@@ -307,6 +308,50 @@ function spawnParticles(emojis) {
         if (hugged) return;
         hugged = true;
         document.getElementById('hugScene').classList.add('hugging');
+    };
+})();
+
+// ============================================================
+//  DAY 7 — KISS DAY logic
+// ============================================================
+(function() {
+    let kissCount = 0;
+    const messages = [
+        "Aww! That's sweet! 😊",
+        "Another one! I love it! 💕",
+        "You're making me blush… 😳",
+        "Keep them coming! 😘",
+        "I can feel your love from here! 💖",
+        "You're the best! 🥰",
+        "This is getting addictive… 😄",
+        "My heart is so full right now! 💗",
+        "Okay okay… I'm melting! 😍",
+        "You really love me, don't you? 💝"
+    ];
+
+    window.sendKiss = function() {
+        kissCount++;
+        
+        // Update counter
+        document.getElementById('kissCount').textContent = `Kisses sent: ${kissCount}`;
+        
+        // Update message
+        const msg = messages[Math.min(kissCount - 1, messages.length - 1)];
+        document.getElementById('kissMsg').textContent = msg;
+        
+        // Create flying kiss
+        const container = document.getElementById('kissContainer');
+        const kiss = document.createElement('div');
+        kiss.className = 'flying-kiss';
+        kiss.textContent = '💋';
+        
+        // Random vertical position
+        kiss.style.bottom = (Math.random() * 40 + 20) + '%';
+        
+        container.appendChild(kiss);
+        
+        // Remove after animation
+        setTimeout(() => kiss.remove(), 2000);
     };
 })();
 
