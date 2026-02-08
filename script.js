@@ -8,7 +8,7 @@
 //   new Date(2026, 1, 10, 12, 0, 0) → Chocolate Day
 //   new Date(2026, 1, 14, 12, 0, 0) → Valentine's Day
 // Set back to  new Date()  when done testing.
-let NOW = new Date(2026, 1, 12, 12, 0, 0);
+let NOW = new Date();
 // ---- END ----
 
 (function init() {
@@ -303,11 +303,84 @@ function spawnParticles(emojis) {
 //  DAY 6 — HUG DAY logic
 // ============================================================
 (function() {
-    let hugged = false;
-    window.doHug = function() {
-        if (hugged) return;
-        hugged = true;
-        document.getElementById('hugScene').classList.add('hugging');
+    let strength = 0;
+    let tapCount = 0;
+    let maxStrength = 100;
+    let decayInterval;
+    
+    const strengthLevels = [
+        { threshold: 0, message: "Tap to start! 😊", class: "" },
+        { threshold: 20, message: "Warm-up Hug 🤗", class: "squeeze-1" },
+        { threshold: 40, message: "Cardio Hug 💪", class: "squeeze-2" },
+        { threshold: 60, message: "Leg Day Hug 🦵", class: "squeeze-3" },
+        { threshold: 80, message: "Deadlift Hug 🏋️", class: "squeeze-4" },
+        { threshold: 95, message: "KIKI STRENGTH! 💥", class: "squeeze-5" }
+    ];
+    
+    const messages = [
+        "Let's see that gym strength, Kiki! 💪",
+        "Easy there, gym queen! 😅",
+        "That's my strong girl! 💕",
+        "Okay okay, you're crushing me! 😂",
+        "Who needs the gym when you hug like this? 🤗",
+        "I can't breathe... but I love it! 😍",
+        "You win! I surrender! 💝",
+        "Remind me never to arm wrestle you! 😄",
+        "That's the strongest hug I've ever felt! 💪",
+        "My superhero! 🦸‍♀️"
+    ];
+
+    window.squeezeHug = function() {
+        tapCount++;
+        strength = Math.min(strength + 8, maxStrength);
+        
+        // Update strength bar
+        document.getElementById('strengthBar').style.width = strength + '%';
+        
+        // Update level and animation
+        let currentLevel = strengthLevels[0];
+        for (let level of strengthLevels) {
+            if (strength >= level.threshold) {
+                currentLevel = level;
+            }
+        }
+        
+        document.getElementById('strengthLevel').textContent = currentLevel.message;
+        
+        // Update hug scene class
+        const hugScene = document.getElementById('hugScene');
+        hugScene.className = 'hug-scene hugging ' + currentLevel.class;
+        
+        // Update message
+        const msgIndex = Math.min(Math.floor(strength / 10), messages.length - 1);
+        document.getElementById('hugStrengthMsg').textContent = messages[msgIndex];
+        
+        // Start decay if not already running
+        if (decayInterval) clearInterval(decayInterval);
+        decayInterval = setInterval(() => {
+            if (strength > 0) {
+                strength = Math.max(strength - 2, 0);
+                document.getElementById('strengthBar').style.width = strength + '%';
+                
+                // Update level during decay
+                let decayLevel = strengthLevels[0];
+                for (let level of strengthLevels) {
+                    if (strength >= level.threshold) {
+                        decayLevel = level;
+                    }
+                }
+                document.getElementById('strengthLevel').textContent = decayLevel.message;
+                
+                const hugScene = document.getElementById('hugScene');
+                if (strength === 0) {
+                    hugScene.className = 'hug-scene';
+                } else {
+                    hugScene.className = 'hug-scene hugging ' + decayLevel.class;
+                }
+            } else {
+                clearInterval(decayInterval);
+            }
+        }, 200);
     };
 })();
 
