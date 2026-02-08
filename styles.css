@@ -541,7 +541,7 @@ body {
 .promise-tap.hidden { display:none; }
 
 /* ============================================================
-   DAY 6 — HUG DAY (Feb 13)
+   DAY 6 — HUG DAY (Feb 12)
    ============================================================ */
 #day6 { display:none; }
 #day6 .day-card { background:rgba(255,236,240,0.92); border-color:rgba(233,30,99,0.15); }
@@ -551,18 +551,31 @@ body {
 
 .hug-scene {
     display:flex; align-items:flex-end; justify-content:center;
-    gap:0; height:130px; margin:0.5rem auto 0.8rem; position:relative;
-    cursor:pointer; user-select:none; -webkit-user-select:none;
+    gap:0; height:130px; margin:0.5rem auto 1.5rem; position:relative;
+    user-select:none; -webkit-user-select:none;
 }
+
 /* silhouettes */
 .hug-person {
     width:70px; height:120px; position:relative;
-    transition: transform 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
+    transition: transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
 }
 .hug-person.left  { transform: translateX(0); }
 .hug-person.right { transform: translateX(0); }
 .hug-scene.hugging .hug-person.left  { transform: translateX(18px); }
 .hug-scene.hugging .hug-person.right { transform: translateX(-18px); }
+
+/* Enhanced squeeze levels */
+.hug-scene.squeeze-1 .hug-person.left  { transform: translateX(12px); }
+.hug-scene.squeeze-1 .hug-person.right { transform: translateX(-12px); }
+.hug-scene.squeeze-2 .hug-person.left  { transform: translateX(18px); }
+.hug-scene.squeeze-2 .hug-person.right { transform: translateX(-18px); }
+.hug-scene.squeeze-3 .hug-person.left  { transform: translateX(24px); }
+.hug-scene.squeeze-3 .hug-person.right { transform: translateX(-24px); }
+.hug-scene.squeeze-4 .hug-person.left  { transform: translateX(28px) scale(0.98); }
+.hug-scene.squeeze-4 .hug-person.right { transform: translateX(-28px) scale(0.98); }
+.hug-scene.squeeze-5 .hug-person.left  { transform: translateX(32px) scale(0.95); }
+.hug-scene.squeeze-5 .hug-person.right { transform: translateX(-32px) scale(0.95); }
 
 /* simple silhouette shapes via CSS */
 .hug-head {
@@ -580,44 +593,128 @@ body {
 
 .hug-arms {
     position:absolute; top:42px; width:100%; height:50px;
-    transition: all 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
+    transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
 }
 .hug-person.left .hug-arms  { left:0; }
 .hug-person.right .hug-arms { left:0; }
-/* arms as pseudo-elements */
+
 .hug-arm {
     position:absolute; width:28px; height:38px;
     border-radius:14px; top:0;
 }
-.hug-person.left .hug-arm  { background:linear-gradient(160deg,#e91e63,#c2185b); left:100%; transform-origin:top left; transform:rotate(12deg); transition:transform 0.6s cubic-bezier(0.175,0.885,0.32,1.275); }
-.hug-person.right .hug-arm { background:linear-gradient(160deg,#ec407a,#ad1457); right:100%; transform-origin:top right; transform:rotate(-12deg); transition:transform 0.6s cubic-bezier(0.175,0.885,0.32,1.275); }
+.hug-person.left .hug-arm  { 
+    background:linear-gradient(160deg,#e91e63,#c2185b); 
+    left:100%; transform-origin:top left; transform:rotate(12deg); 
+    transition:transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275); 
+}
+.hug-person.right .hug-arm { 
+    background:linear-gradient(160deg,#ec407a,#ad1457); 
+    right:100%; transform-origin:top right; transform:rotate(-12deg); 
+    transition:transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275); 
+}
+
 .hug-scene.hugging .hug-person.left .hug-arm  { transform:rotate(40deg); }
 .hug-scene.hugging .hug-person.right .hug-arm { transform:rotate(-40deg); }
+.hug-scene.squeeze-3 .hug-person.left .hug-arm  { transform:rotate(50deg); }
+.hug-scene.squeeze-3 .hug-person.right .hug-arm { transform:rotate(-50deg); }
+.hug-scene.squeeze-5 .hug-person.left .hug-arm  { transform:rotate(60deg); }
+.hug-scene.squeeze-5 .hug-person.right .hug-arm { transform:rotate(-60deg); }
 
 .hug-hearts {
     position:absolute; top:-10px; left:50%; transform:translateX(-50%);
-    font-size:1.3rem; opacity:0; transition:opacity 0.5s 0.3s;
+    font-size:1.3rem; opacity:0; transition:opacity 0.3s;
     white-space:nowrap; letter-spacing:0.3rem;
 }
 .hug-scene.hugging .hug-hearts { opacity:1; }
 
-.hug-tap-hint {
-    font-family:'Caveat',cursive; font-size:1rem;
-    color:var(--pink-mid); margin-top:0.2rem;
+/* Strength Meter */
+.strength-container {
+    margin: 1.5rem auto 1rem;
+    max-width: 320px;
 }
-.hug-scene.hugging ~ .hug-tap-hint { opacity:0; }
 
-.hug-msg {
-    font-family:'Caveat',cursive; font-size:1.1rem;
-    color:var(--pink-hot); font-weight:600;
-    min-height:1.6em; margin-top:0.5rem;
-    opacity:0; transition:opacity 0.5s 0.4s;
+.strength-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--pink-hot);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
 }
-.hug-scene.hugging ~ .hug-msg { opacity:1; }
 
-/* ============================================================
-   DAY 7 — KISS DAY / VALENTINE'S DAY (Feb 14)
-   ============================================================ */
+.strength-bar-bg {
+    width: 100%;
+    height: 30px;
+    background: rgba(233, 30, 99, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid rgba(233, 30, 99, 0.2);
+    position: relative;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #f48fb1, #e91e63, #c2185b);
+    border-radius: 15px;
+    transition: width 0.3s ease, background 0.3s ease;
+    position: relative;
+    box-shadow: 0 0 10px rgba(233, 30, 99, 0.4);
+}
+
+.strength-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.strength-level {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    color: var(--pink-hot);
+    margin-top: 0.5rem;
+    font-weight: 700;
+    text-align: center;
+    min-height: 1.5em;
+}
+
+/* Hug Tap Button */
+.hug-tap-btn {
+    background: linear-gradient(135deg, var(--pink-hot), var(--red-deep));
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 25px rgba(233, 30, 99, 0.4);
+    transition: all 0.2s ease;
+    margin: 0.5rem auto;
+    display: block;
+}
+
+.hug-tap-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+}
+
+.hug-strength-msg {
+    font-family: 'Caveat', cursive;
+    font-size: 1.15rem;
+    color: var(--pink-mid);
+    margin-top: 1rem;
+    min-height: 2em;
+    font-weight: 600;
+}
+
 /* ============================================================
    DAY 7 — KISS DAY (Feb 13)
    ============================================================ */
