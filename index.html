@@ -148,9 +148,11 @@
 <div id="day6">
     <div class="day-card">
         <span class="day-badge">🤗 Day 6 — Hug Day</span>
-        <h2 class="day-headline">A hug just for<br><span class="name">you</span></h2>
-        <p class="day-sub">Tap them together… 🤗</p>
-        <div class="hug-scene" id="hugScene" onclick="doHug()">
+        <h2 class="day-headline">Test your<br><span class="name">hug strength</span>! 💪</h2>
+        <p class="day-sub">Tap rapidly to squeeze harder! 🤗</p>
+        
+        <!-- Hug Scene -->
+        <div class="hug-scene" id="hugScene">
             <div class="hug-person left">
                 <div class="hug-head"></div>
                 <div class="hug-torso"></div>
@@ -163,10 +165,24 @@
             </div>
             <div class="hug-hearts">💕 💖 💕</div>
         </div>
-        <p class="hug-tap-hint" id="hugHint">👆 Tap to hug!</p>
-        <p class="hug-msg" id="hugMsg">You deserve the tightest hug in the whole world… and I'm never letting go. 🥰</p>
+        
+        <!-- Strength Meter -->
+        <div class="strength-container">
+            <div class="strength-label">Hug Strength:</div>
+            <div class="strength-bar-bg">
+                <div class="strength-bar" id="strengthBar"></div>
+            </div>
+            <div class="strength-level" id="strengthLevel">Tap to start! 😊</div>
+        </div>
+        
+        <!-- Tap Button -->
+        <button class="hug-tap-btn" id="hugTapBtn" onclick="squeezeHug()">Squeeze! 🤗</button>
+        
+        <!-- Message -->
+        <p class="hug-strength-msg" id="hugStrengthMsg">Let's see that gym strength, Kiki! 💪</p>
+        
         <div class="tomorrow-hint">
-            <span class="emoji">💝</span> Come back tomorrow for the grand finale!
+            <span class="emoji">💋</span> Come back tomorrow for the next surprise!
         </div>
     </div>
 </div>
