@@ -485,6 +485,7 @@ body {
     100% { opacity:0; transform:translateY(-70px) scale(0.5); }
 }
 
+
 /* ============================================================
    DAY 5 — PROMISE DAY (Feb 12)
    ============================================================ */
@@ -539,6 +540,64 @@ body {
 }
 .promise-tap:hover { background:rgba(44,24,16,0.1); }
 .promise-tap.hidden { display:none; }
+
+/* Promise Meme Image */
+.promise-meme {
+    margin-top: 2rem;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.8s ease, max-height 0.8s ease;
+}
+
+.promise-meme.show {
+    opacity: 1;
+    max-height: 500px;
+}
+
+.promise-meme img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(44, 24, 16, 0.2);
+    display: block;
+    margin: 0 auto;
+}
+
+/* Promise Meme Image */
+.promise-meme {
+    margin-top: 2rem;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.8s ease, max-height 0.8s ease;
+}
+
+.promise-meme.show {
+    opacity: 1;
+    max-height: 600px;
+}
+
+.promise-meme img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(44, 24, 16, 0.2);
+    display: block;
+    margin: 0 auto;
+}
+
+.promise-meme-caption {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    color: var(--choc-mid);
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 600;
+    line-height: 1.6;
+}
 
 /* ============================================================
    DAY 6 — HUG DAY (Feb 12)
