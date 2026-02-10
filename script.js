@@ -294,7 +294,11 @@ function spawnParticles(emojis) {
         document.getElementById('promise-' + revealed).classList.add('revealed');
         revealed++;
         if (revealed >= promises.length) {
+            // All promises revealed - hide button and show meme
             document.getElementById('promiseTap').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('promiseMeme').classList.add('show');
+            }, 500);
         }
     };
 })();
