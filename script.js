@@ -8,7 +8,7 @@
 //   new Date(2026, 1, 10, 12, 0, 0) → Chocolate Day
 //   new Date(2026, 1, 14, 12, 0, 0) → Valentine's Day
 // Set back to  new Date()  when done testing.
-let NOW = new Date();
+let NOW = new Date(2026, 1, 11, 12, 0, 0)
 // ---- END ----
 
 (function init() {
