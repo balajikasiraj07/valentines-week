@@ -4,7 +4,7 @@
 // ---- CHANGE THIS LINE TO TEST DIFFERENT DAYS ----
 // Examples:
 //   new Date(2026, 1, 5, 12, 0, 0)  → Countdown
-//   new Date(2026, 1, 8, 12, 0, 0)  → Rose Day
+//   new Date(2026, 1, 8, 12, 0, 0)  →  Rose Day
 //   new Date(2026, 1, 10, 12, 0, 0) → Chocolate Day
 //   new Date(2026, 1, 14, 12, 0, 0) → Valentine's Day
 // Set back to  new Date()  when done testing.
