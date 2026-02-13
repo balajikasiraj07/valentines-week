@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 8 — Valentine's Day Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --pink-hot: #e91e63;
+    --pink-mid: #f48fb1;
+    --red-deep: #c2185b;
+    --gold: #d4af37;
+    --cream: #fff5f7;
+    --charcoal: #3e2029;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:100%; min-height:100vh; overflow-x:hidden; }
+
+body {
+    font-family: 'Playfair Display', serif;
+    color: var(--charcoal);
+    min-height: 100vh;
+    background: linear-gradient(160deg, #fff5f7 0%, #ffe8ec 100%);
+    position: relative;
+}
+
+/* ===== OPENING CARD ===== */
+.opening-scene {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.opening-intro {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--pink-mid);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s both;
+}
+
+.invite-card {
+    padding: 2.5rem 2rem;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 30px;
+    box-shadow: 0 10px 44px rgba(233, 30, 99, 0.12), 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    text-align: center;
+    width: 280px;
+    animation: cardFloat 3s ease-in-out infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.invite-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 50px rgba(233, 30, 99, 0.2), 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.invite-card:active { transform: scale(0.98); }
+
+@keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.invite-card.opened {
+    animation: cardOpen 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+}
+
+@keyframes cardOpen {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.8; }
+    100% { transform: scale(0.9); opacity: 0; }
+}
+
+.invite-heart {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+    animation: heartbeat 1.3s ease-in-out infinite;
+    filter: drop-shadow(0 3px 8px rgba(233, 30, 99, 0.3));
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.22); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.14); }
+}
+
+.invite-monogram {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: 4px;
+    margin-bottom: 0.8rem;
+}
+
+.invite-amp {
+    font-style: italic;
+    color: var(--pink-hot);
+    font-size: 0.8em;
+}
+
+.invite-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--pink-mid), transparent);
+    margin: 0 auto 0.8rem;
+}
+
+.invite-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.15rem;
+    color: var(--pink-mid);
+    font-weight: 600;
+}
+
+.opening-hint {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--pink-mid);
+    margin-top: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s both, gentlePulse 3s ease-in-out infinite 2.2s;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gentlePulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* ===== TYPEWRITER SCENE ===== */
+.typewriter-scene {
+    display: none;
+    min-height: 100vh;
+    padding: 3rem 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.typewriter-scene.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: sceneIn 1.5s ease both;
+}
+
+@keyframes sceneIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Letter container */
+.letter-container {
+    max-width: 500px;
+    width: 100%;
+    text-align: left;
+}
+
+.letter-date {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--pink-mid);
+    opacity: 0.6;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.letter-greeting {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    color: var(--pink-hot);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    opacity: 0;
+}
+
+.letter-greeting.show { animation: fadeUp 0.8s ease both; }
+
+/* Typewriter text */
+.letter-line {
+    font-family: 'Caveat', cursive;
+    font-size: 1.25rem;
+    line-height: 1.9;
+    color: var(--charcoal);
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    min-height: 1.5em;
+}
+
+.letter-line .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: var(--pink-hot);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Signature */
+.letter-sign {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: var(--pink-hot);
+    text-align: right;
+    margin-top: 2rem;
+    font-weight: 700;
+    opacity: 0;
+}
+.letter-sign.show { animation: fadeUp 1s ease both; }
+
+/* ===== ROSE PETALS ===== */
+.petal {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    animation: petalFall linear infinite;
+}
+
+@keyframes petalFall {
+    0% { transform: translateY(-5vh) rotate(0deg) translateX(0); opacity: 0; }
+    5% { opacity: 0.6; }
+    50% { transform: translateY(50vh) rotate(180deg) translateX(30px); }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .invite-card { width: 240px; padding: 2rem 1.5rem; }
+    .invite-monogram { font-size: 1.8rem; }
+    .letter-line { font-size: 1.15rem; }
+    .letter-greeting { font-size: 1.5rem; }
+    .typewriter-scene { padding: 2.5rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="petalContainer"></div>
+
+<!-- SCENE 1: Opening Card -->
+<div class="opening-scene" id="openingScene">
+    <p class="opening-intro">Happy Valentine's Day, Kiki 💝</p>
+    <div class="invite-card" id="inviteCard" onclick="openLetter()">
+        <div class="invite-heart">💝</div>
+        <div class="invite-monogram">B <span class="invite-amp">&</span> K</div>
+        <div class="invite-line"></div>
+        <p class="invite-label">A letter for you</p>
+    </div>
+    <p class="opening-hint">Tap to open 💌</p>
+</div>
+
+<!-- SCENE 2: Typewriter Letter -->
+<div class="typewriter-scene" id="typewriterScene">
+    <div class="letter-container" id="letterContainer">
+        <div class="letter-date">February 14, 2026</div>
+        <div class="letter-greeting" id="greeting">My dearest Kiki,</div>
+        <div id="linesContainer"></div>
+        <div class="letter-sign" id="letterSign">Forever yours, Balaji \u2764\uFE0F</div>
+    </div>
+</div>
+
+<canvas id="confettiCanvas" style="position:fixed;inset:0;pointer-events:none;z-index:20;"></canvas>
+
+<script>
+// ============================================================
+//  DAY 8 — LOVE LETTER TYPEWRITER
+// ============================================================
+
+const lines = [
+    "Do you remember October 24th?",
+    "\"Are you up for a call tomorrow?\"",
+    "That\'s all it took for me to know that you\'re my type.",
+    "",
+    "Then came November 16th\u2026 our first date.",
+    "A beautiful, memorable lunch,",
+    "and a long walk at Marina.",
+    "My first sight-adichifying moment with you was when I realised:",
+    "a beauty not admired is a sin.",
+    "",
+    "December 6th \u2014 the day you said the long-awaited yes.",
+    "Two firsts on many levels. One perfect day.",
+    "",
+    "You handle twelve-hour work days like it\'s second nature,",
+    "yet somehow, you still show up as you,",
+    "fresh and energetic for our calls.",
+    "",
+    "Yes, it\'s long-distance.",
+    "But I genuinely look forward to our nights \u2014",
+    "no topics, no pressure, just yapping, unwinding, being us.",
+    "",
+    "My passport took 28 years and 1 Kiki power to arrive.",
+    "And hereafter, one stamp, one memory at a time.",
+    "",
+    "This whole week was only a glimpse of what you mean to me.",
+    "You make the ordinary feel extraordinary,",
+    "and the extraordinary feel like home.",
+    "",
+    "Every single day with you feels like Valentine\'s Day.",
+    "I\'m yours \u2014 today, tomorrow, and every day after that.",
+    "Always.",
+    "",
+    "Let\'s get married, Kiki. \u2764\uFE0F"
+];
+
+let opened = false;
+
+function openLetter() {
+    if (opened) return;
+    opened = true;
+    
+    document.getElementById('inviteCard').classList.add('opened');
+    
+    setTimeout(function() {
+        document.getElementById('openingScene').style.display = 'none';
+        document.getElementById('typewriterScene').classList.add('active');
+        
+        spawnPetals();
+        
+        // Start typewriter after scene fades in
+        setTimeout(startTypewriter, 1200);
+    }, 1000);
+}
+
+function startTypewriter() {
+    // Show greeting first
+    document.getElementById('greeting').classList.add('show');
+    
+    // Start typing lines after greeting
+    setTimeout(function() {
+        typeLines(0);
+    }, 1000);
+}
+
+function typeLines(lineIndex) {
+    if (lineIndex >= lines.length) {
+        // All lines done — show signature + confetti
+        setTimeout(function() {
+            document.getElementById('letterSign').classList.add('show');
+        }, 600);
+        setTimeout(function() {
+            launchConfetti();
+        }, 1400);
+        return;
+    }
+    
+    var text = lines[lineIndex];
+    var container = document.getElementById('linesContainer');
+    
+    // Empty line = paragraph break
+    if (text === "") {
+        var spacer = document.createElement('div');
+        spacer.style.height = '0.8rem';
+        container.appendChild(spacer);
+        setTimeout(function() { typeLines(lineIndex + 1); }, 300);
+        return;
+    }
+    
+    var lineEl = document.createElement('div');
+    lineEl.className = 'letter-line';
+    container.appendChild(lineEl);
+    
+    typeText(lineEl, text, 0, function() {
+        // Remove cursor from this line after done
+        var cursor = lineEl.querySelector('.cursor');
+        if (cursor) cursor.remove();
+        
+        // Auto-scroll to keep text visible
+        lineEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
+        // Next line after a pause
+        setTimeout(function() { typeLines(lineIndex + 1); }, 400);
+    });
+}
+
+function typeText(el, text, charIndex, onDone) {
+    if (charIndex <= text.length) {
+        el.innerHTML = text.substring(0, charIndex) + '<span class="cursor"></span>';
+        
+        // Variable speed: slower after punctuation, faster for spaces
+        var char = text[charIndex - 1];
+        var delay = 35;
+        if (char === '.' || char === '!' || char === '?') delay = 300;
+        else if (char === ',') delay = 150;
+        else if (char === '—') delay = 200;
+        else if (char === '"') delay = 100;
+        
+        setTimeout(function() { typeText(el, text, charIndex + 1, onDone); }, delay);
+    } else {
+        if (onDone) onDone();
+    }
+}
+
+// --- Rose Petals ---
+function spawnPetals() {
+    var container = document.getElementById('petalContainer');
+    var colors = ['#e91e63', '#f06292', '#f48fb1', '#c2185b', '#ff80ab'];
+    
+    for (var i = 0; i < 12; i++) {
+        var petal = document.createElement('div');
+        petal.className = 'petal';
+        var size = Math.random() * 12 + 8;
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        
+        petal.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 20 20">' +
+            '<ellipse cx="10" cy="10" rx="8" ry="5" fill="' + color + '" opacity="0.6" ' +
+            'transform="rotate(' + (Math.random() * 60 - 30) + ', 10, 10)"/></svg>';
+        
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.animationDuration = (Math.random() * 8 + 8) + 's';
+        petal.style.animationDelay = (Math.random() * 10) + 's';
+        
+        container.appendChild(petal);
+    }
+}
+
+// --- Confetti ---
+(function() {
+    var canvas = document.getElementById('confettiCanvas');
+    var ctx = canvas.getContext('2d');
+    var pieces = [], animating = false;
+
+    function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+    addEventListener('resize', resize);
+    resize();
+
+    var colors = ['#e91e63','#f06292','#ad1457','#d4af37','#fff176','#ffb74d','#fff','#f8bbd0','#ce93d8'];
+
+    function Piece() {
+        this.x = Math.random() * canvas.width;
+        this.y = -Math.random() * canvas.height * 0.3;
+        this.vx = (Math.random() - 0.5) * 4;
+        this.vy = Math.random() * 3 + 2;
+        this.rot = Math.random() * 360;
+        this.rotV = (Math.random() - 0.5) * 12;
+        this.w = Math.random() * 8 + 5;
+        this.h = Math.random() * 5 + 3;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.life = 1;
+    }
+
+    function update() {
+        pieces.forEach(function(p) {
+            p.x += p.vx; p.y += p.vy; p.rot += p.rotV; p.vy *= 1.02;
+            if (p.y > canvas.height) p.life -= 0.03;
+        });
+        pieces = pieces.filter(function(p) { return p.life > 0; });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(function(p) {
+            ctx.save();
+            ctx.globalAlpha = p.life;
+            ctx.fillStyle = p.color;
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot * Math.PI / 180);
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            ctx.restore();
+        });
+    }
+
+    function loop() {
+        if (!animating) return;
+        update(); draw();
+        if (pieces.length > 0) requestAnimationFrame(loop);
+        else animating = false;
+    }
+
+    window.launchConfetti = function() {
+        for (var i = 0; i < 200; i++) pieces.push(new Piece());
+        animating = true; loop();
+    };
+})();
+</script>
+</body>
+</html>
